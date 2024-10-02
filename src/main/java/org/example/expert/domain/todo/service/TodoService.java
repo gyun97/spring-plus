@@ -1,10 +1,12 @@
 package org.example.expert.domain.todo.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.expert.client.WeatherClient;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
+import org.example.expert.domain.todo.dto.request.TodosGetRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
 import org.example.expert.domain.todo.entity.Todo;
@@ -17,9 +19,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class TodoService {
 
     private final TodoRepository todoRepository;
@@ -48,10 +54,17 @@ public class TodoService {
         );
     }
 
-    public Page<TodoResponse> getTodos(int page, int size) {
+    public Page<TodoResponse> getTodos(TodosGetRequest request, int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
 
-        Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+        String weather = request.getWeather();
+        LocalDateTime startModifiedDate = request.getStartModifiedDate() != null ? request.getStartModifiedDate().atStartOfDay() : LocalDateTime.MIN;
+        LocalDateTime endModifiedDate = request.getEndModifiedDate() != null ? request.getEndModifiedDate().atTime(23, 59, 59, 999999999) : LocalDateTime.MAX;
+
+        log.info("startModifiedDate = {}", startModifiedDate);
+        log.info("endModifiedDate = {}", endModifiedDate);
+
+        Page<Todo> todos = todoRepository.findByWeatherOrModifiedDate(weather, startModifiedDate, endModifiedDate, pageable);
 
         return todos.map(todo -> new TodoResponse(
                 todo.getId(),
