@@ -33,7 +33,6 @@ public class TodoController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-//        return ResponseEntity.ok(todoService.getTodos(page, size));
         return ResponseEntity.ok(todoService.getTodos(request, page, size));
     }
 
