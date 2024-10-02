@@ -20,6 +20,7 @@ public class User extends Timestamped {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+    @Column(name = "nickname")
     private String nickName; // Lv 1 - 2 : 유저 닉네임 컬럼 추가
 
 
