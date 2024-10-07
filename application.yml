@@ -23,6 +23,14 @@ spring:
       p6spy: info
       use_sql_comments: true
 
+management:
+  endpoints:
+    web:
+      base-path: /
+  endpoint:
+    health:
+      show-details: always
+
 jwt:
   secret:
     key: ${JWT_SECRET_KEY}

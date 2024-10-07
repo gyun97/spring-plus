@@ -1,9 +1,36 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/spring/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin/' }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.3.3")
+        classpath "io.spring.gradle:dependency-management-plugin:1.1.6"
+    }
+}
+
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.3'
-    id 'io.spring.dependency-management' version '1.1.6'
-    id 'org.jetbrains.kotlin.jvm'
 }
+
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+
+//plugins {
+//    id 'java'
+//    id 'org.springframework.boot' version '3.3.3'
+//    id 'io.spring.dependency-management' version '1.1.6'
+//    id 'org.jetbrains.kotlin.jvm'
+//}
 
 group = 'org.example'
 version = '0.0.1-SNAPSHOT'
@@ -56,6 +83,9 @@ dependencies {
     // Spring Security 추가
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // Health Check
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 
 }

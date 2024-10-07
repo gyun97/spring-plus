@@ -101,7 +101,12 @@ public class TodoQueryRepositoryImpl implements TodoQueryRepository {
         LocalDateTime startDate = startCreatedAt != null ? startCreatedAt.atStartOfDay() : null;
         LocalDateTime endDate = endCreatedAt != null ? endCreatedAt.atTime(23, 59, 59) : null;
 
-        return startDate != null && endDate != null ? todo.createdAt.between(startDate, endDate) : null;
+        // 둘 다 null이면 일정 조건은 아예 생략된 거니까 null 반환해서 where절에서 날짜 조건 없애버린다.
+        if (startDate == null && endDate == null) {
+            return null;
+        }
+
+        return todo.createdAt.between(startDate, endDate);
     }
 }
 
