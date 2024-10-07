@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import static org.example.expert.domain.comment.entity.QComment.comment;
 import static org.example.expert.domain.manager.entity.QManager.manager;
+import static org.example.expert.domain.todo.entity.QTodo.*;
 import static org.example.expert.domain.todo.entity.QTodo.todo;
 import static org.example.expert.domain.user.entity.QUser.user;
 
@@ -52,7 +53,7 @@ public class TodoQueryRepositoryImpl implements TodoQueryRepository {
     public Page<TodoSearchResponse> searchTodos(TodoSearchReqeust reqeust, Pageable pageable) {
 
         List<TodoSearchResponse> results = queryFactory
-                .select(Projections.fields(TodoSearchResponse.class, // 필드 직접 주입으로 프로젝션 반환 선택함
+                .select(Projections.fields(TodoSearchResponse.class, // 필드 직접 주입 방식으로 프로젝션 반환 방법 선택
                         todo.title,
                         todo.managers.size().as("managerCount"),
                         todo.comments.size().as("commentCount")
