@@ -2,7 +2,7 @@
 
 <br>
 
-## EC2
+## 12 - 1 : EC2
 
 ### EC2 인스턴스 생성
 ![image](https://github.com/user-attachments/assets/b1881209-3996-43ca-b1b3-f2212e8bb8ed)
@@ -36,3 +36,28 @@
 
 ![image](https://github.com/user-attachments/assets/88bddb2f-1b29-40e4-b88a-dda306a4260e)
 
+<br>
+<br>
+
+## 12 - 2 : RDS
+
+
+### RDS 생성
+
+![image](https://github.com/user-attachments/assets/beda41e8-dfda-4ecc-8770-1994c6361207)
+
+<br>
+
+
+### RDS와 EC2를 통한 애플리케이션 연결
+
+
+![image](https://github.com/user-attachments/assets/8f19a368-4ff1-418a-8d86-5deb1d4ec257)
+
+<br>
+
+![image](https://github.com/user-attachments/assets/760ded55-7f33-4a00-87f6-3d3c1691091d)
+
+<br>
+
+### 
