@@ -59,5 +59,17 @@
 ![image](https://github.com/user-attachments/assets/760ded55-7f33-4a00-87f6-3d3c1691091d)
 
 <br>
+<br>
 
-### 
+## 12 - 3 : S3
+
+<br>
+
+### S3 버킷을 생성하여 유저의 프로필 이미지 업로드 및 관리
+
+
+![image](https://github.com/user-attachments/assets/42f06f5b-9e26-4233-ab18-0e156a2cb9f2)
+
+
+
+
