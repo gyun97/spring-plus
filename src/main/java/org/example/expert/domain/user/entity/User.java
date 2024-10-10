@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.entity.Timestamped;
 import org.example.expert.domain.user.enums.UserRole;
+import org.hibernate.annotations.BatchSize;
 
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "users",  indexes = @Index(name = "idx_nickname", columnList = "nickname"))
+@BatchSize(size = 1000)
 public class User extends Timestamped {
 
     @Id

@@ -67,7 +67,7 @@ public class ManagerService {
 
             return new ManagerSaveResponse(
                     savedManagerUser.getId(),
-                    new UserResponse(managerUser.getId(), managerUser.getEmail())
+                    new UserResponse(managerUser.getId(), managerUser.getEmail(), managerUser.getNickName())
             );
             // 매니저 등록 실패 로그 저장
         } catch (InvalidRequestException e) {
@@ -89,7 +89,7 @@ public class ManagerService {
             User user = manager.getUser();
             dtoList.add(new ManagerResponse(
                     manager.getId(),
-                    new UserResponse(user.getId(), user.getEmail())
+                    new UserResponse(user.getId(), user.getEmail(), user.getNickName())
             ));
         }
         return dtoList;

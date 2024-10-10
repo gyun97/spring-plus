@@ -84,11 +84,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    // Health Check
+    // Health Check 추가
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+    // RandomStringUtils 추가
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
+
+    // 더미 데이터 만들 수 있는 Java Faker 추가
+//    implementation 'com.github.javafaker:javafaker:1.0.2'
+//    implementation 'org.yaml:snakeyaml:1.33'
 }
+
 tasks.named('test') {
     useJUnitPlatform()
 }

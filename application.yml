@@ -1,12 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/scheduleapp_jpa?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://localhost:3306/scheduleapp_jpa?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: root
+#    username: ${MYSQL_USERNAME}
+    password: 1234
+#    password: ${MYSQL_PASSWORD}
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
       ddl-auto: update
@@ -33,4 +35,6 @@ management:
 
 jwt:
   secret:
-    key: ${JWT_SECRET_KEY}
+    key: KfXqpFb5ZrPnOdW2AFONSqauZKw1o0/o+LnU7bUaDQY=
+#    key: ${JWT_SECRET_KEY}
+
