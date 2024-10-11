@@ -1,20 +1,30 @@
 package org.example.expert.domain.user.testdata;
 
+import org.example.expert.config.S3Config;
+import org.example.expert.domain.s3.S3Uploader;
 import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.enums.UserRole;
 import org.example.expert.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 
+
 @SpringBootTest
+//@ActiveProfiles("test")
+//@TestPropertySource(locations = "classpath:application-test.yml")
 public class UserGenerateTest {
 
     @Autowired
@@ -22,6 +32,12 @@ public class UserGenerateTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @MockBean
+    private S3Config s3Config;
+
+    @MockBean
+    private S3Uploader s3Uploader;
 
     private final int BATCH_SIZE = 1000; // 배치 사이즈 설정
     private final int TOTAL_RECORDS = 1000000; // 총 100만 건
@@ -49,7 +65,7 @@ public class UserGenerateTest {
             batchArgs.add(userData);
 
             // 배치 사이즈에 도달하면 DB에 Insert
-            if (i > 0 && i % BATCH_SIZE == 0) {
+            if (i % BATCH_SIZE == 0) {
                 executeBatchInsert(batchArgs);
                 batchArgs.clear();
             }
@@ -69,16 +85,9 @@ public class UserGenerateTest {
     }
 
 
-
-    @Test
-    @Transactional(readOnly = true)
-    void findUserByNickName() {
-        String userNickName = "몰두한 얼룩말 82525";
-        Optional<User> byNickName = userRepository.findByNickName(userNickName);
-        assertThat(byNickName.get().getNickName()).isEqualTo(userNickName);
-    }
-
-
+    /**
+     * JPA 단순하게 데이터 삽입 - 시간 너무 오래 걸려서 사용 안 하기로 함
+     */
     @Test
     @Transactional
     public void insertUsers() {
@@ -98,7 +107,6 @@ public class UserGenerateTest {
         }
     }
 
-
     // 랜덤 닉네임 중복되지 않으면 저장하는 메서드
     private String generateUniqueRandomNickName(Set<String> uniqueNicknames) {
         String nickName;
@@ -114,6 +122,18 @@ public class UserGenerateTest {
     public int countUserData() {
         String sql = "SELECT COUNT(*) FROM users";
         return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+
+    /**
+     * 닉네임 조회 검사
+     */
+    @Test
+    @Transactional(readOnly = true)
+    void findUserByNickName() {
+        String userNickName = "몰두한 얼룩말 82525";
+        Optional<User> byNickName = userRepository.findByNickName(userNickName);
+        assertThat(byNickName.get().getNickName()).isEqualTo(userNickName);
     }
 
 

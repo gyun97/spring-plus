@@ -38,3 +38,15 @@ out/
 
 ### properties ###
 *.properties
+
+# 모든 private.yml 파일을 무시
+*private.yml
+
+
+#application-private.yml
+#application-test-private.yml
+
+*.png
+*.jpeg
+
+

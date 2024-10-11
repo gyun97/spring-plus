@@ -30,6 +30,9 @@ public class User extends Timestamped {
     @Column(name = "nickname")
     private String nickName; // 유저 닉네임 컬럼 추가
 
+    @Column
+    private String imageUrl; // 유저 프로필 이미지 컬럼 추가
+
     // 생성자: userRole을 UserRole로 받음
     public User(String email, String password, UserRole userRole, String nickName) {
         this.email = email;
@@ -37,6 +40,16 @@ public class User extends Timestamped {
         this.userRole = userRole;
         this.nickName = nickName;
     }
+
+    public User(String email, String password, UserRole userRole, String nickName, String imageUrl) {
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+        this.nickName = nickName;
+        this.imageUrl = imageUrl;
+    }
+
+
 
     // AuthUser에서 User로 변환
     private User(Long id, String email, UserRole userRole, String nickName) {
@@ -65,5 +78,9 @@ public class User extends Timestamped {
     // 사용자 역할 업데이트
     public void updateRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
